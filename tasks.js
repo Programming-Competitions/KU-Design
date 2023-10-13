@@ -1,7 +1,7 @@
 taskArr = ["Try it out!", "🚀🚀🚀"];
 
 function delArr() {
-  // Get all checkboxes on the page
+  // delete an element
   var checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
   // Loop through each checkbox and check if it's checked
@@ -11,8 +11,9 @@ function delArr() {
     // If the checkbox is checked, get its corresponding label
     if (checkbox.checked) {
       var label = checkbox.labels[0].textContent;
-      taskArr.pop(label);
-      renderArr()
+      index = findInArray(label, taskArr);
+      taskArr.splice(index, 1);
+      renderArr();
     }
   }
 }
@@ -38,6 +39,16 @@ function addTask() {
   renderArr();
 }
 
+function findInArray(val, array) {
+  for (var i = 0; i < array.length; i++) {
+    if (array[i] == val) {
+      return i;
+    }
+  }
+  return "no val";
+}
+
+// tasks in progress
 renderArr();
 
 const del = document.getElementById("listClick"); // constant for deleted elements
@@ -45,9 +56,8 @@ del.addEventListener("click", () => {
   delArr();
 });
 
-const add = document.getElementById("taskAdd")
+const add = document.getElementById("taskAdd");
 
 add.addEventListener("click", () => {
-  addTask()
+  addTask();
 });
-
