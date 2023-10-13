@@ -28,15 +28,19 @@ function renderArr() {
     // adds all the tasks
     document.getElementById("tasklist").innerHTML =
       document.getElementById("tasklist").innerHTML +
-      `<input type="checkbox" id="task${i}" value="1" />
-    <label for="task${i}" class="strikethrough">${taskArr[i]}</label><br />`;
+      `<div class="p-2 bg-slate-200 rounded-xl" style="margin:-5px;"><input type="checkbox" id="task${i}" value="1" />
+      <label for="task${i}" class="strikethrough">${taskArr[i]}</label></div><br />`;
   }
 }
 
 function addTask() {
   task = prompt("what task do you need to add?");
-  taskArr.push(task);
-  renderArr();
+  if(task == null){
+    return
+  } else {
+    taskArr.push(task);
+    renderArr();
+  }
 }
 
 function findInArray(val, array) {
