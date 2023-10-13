@@ -1,82 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Notes</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <style>
-      input[type="checkbox"]:checked + label.strikethrough {
-        text-decoration: line-through;
-      }
 
-      #taskAdd {
-        position: absolute;
-        top: 86%;
-        left: 93%;
-        width: 70px;
-        height: 70px;
-        background-color: #000;
-        color: #fff;
-        border-radius: 50px;
-        text-align: center;
-        padding-top: 5px;
-      }
-    </style>
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-firestore.js"></script>
-    <script>
-      var firebaseConfig = {
-        apiKey: "AIzaSyDCeiXpYwVJuKRJ_jvhYLB_XcU6wyqpkVQ",
-        authDomain: "taskority.firebaseapp.com",
-        projectId: "taskority",
-        storageBucket: "taskority.appspot.com",
-        messagingSenderId: "1038893165526",
-        appId: "1:1038893165526:web:39e3409aa93674c04f1277",
-      };
-      firebase.initializeApp(firebaseConfig);
-    </script>
-    <script src="auth.js" defer></script>
-  </head>
-  <body>
-    <nav class="flex items-center justify-between flex-wrap bg-black p-6">
-        <div class="flex items-center flex-shrink-0 text-white mr-6">
-          <a href="index.html"
-            ><span class="font-semibold text-4xl tracking-tight"
-              >Tasklist</span
-            ></a
-          >
-        </div>
-        <div class="text-sm lg:flex-grow">
-          <a href="demo.html" class="block mt-4 lg:inline-block lg:mt-0 text-white">
-            Demo
-          </a>
-        </div>
-        <div>
-          <a
-            href="login.html"
-            class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-black hover:bg-white mt-4 lg:mt-0"
-            >Login</a
-          >
-        </div>
-      </nav>
-    <main id="listClick">
-      <h1 class="text-6xl text-center p-4 font-bold underline">Your Lists</h1>
-      <div style="width: 40%; margin-left: 30%">
-        <div class="text-2xl p-2" id="tasklist">
-          <br>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="calendar.js"></script>
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/evo-calendar@1.1.2/evo-calendar/css/evo-calendar.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="calendar.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    input[type="checkbox"]:checked+label.strikethrough {
+      text-decoration: line-through;
+    }
+
+    #taskAdd {
+      position: absolute;
+      top: 86%;
+      left: 93%;
+      width: 70px;
+      height: 70px;
+      background-color: #000;
+      color: #fff;
+      border-radius: 50px;
+      text-align: center;
+      padding-top: 5px;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(function () {
+      $("#navBar").load("nav.html");
+    });
+  </script>
+</head>
+
+<body>
+  <div id="navBar"></div>
+  <div id="calendar"></div>
+  <!-- Add jQuery library (required) -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+  <!-- Add the evo-calendar.js for.. obviously, functionality! -->
+  <script src="https://cdn.jsdelivr.net/npm/evo-calendar@1.1.2/evo-calendar/js/evo-calendar.min.js"></script>
+
+  <main id="listClick">
+    <h1 class="text-6xl text-center p-4 font-bold underline">Your Tasks</h1>
+    <div style="width: 40%; margin-left: 30%">
+      <div class="text-2xl p-2" id="tasklist">
+        <br>
       </div>
-    </main>
-    <i class="fa fa-plus text-6xl" id="taskAdd" aria-hidden="true"></i>
-  </body>
+    </div>
+  </main>
+  <i class="fa fa-plus text-6xl" id="taskAdd" aria-hidden="true"></i>
+</body>
+
 </html>
