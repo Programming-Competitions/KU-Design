@@ -1,88 +1,85 @@
-const express = require('express');
-const session = require('express-session');
-const bodyParser = require('body-parser');
-const app = express();
+var express = require("express");
+var request = require("supertest");
+var app = express();
 
-// Middleware to parse JSON and form data
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true })); // Add this line to parse URL-encoded bodies
 
-// Middleware for sessions
-app.use(
-  session({
-    secret: 'mysecretkey',
-    resave: true,
-    saveUninitialized: true,
-  })
-);
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
 
-let authData = {
-  users: {
-    vatsa: {
-      password: '1357',
+let listData = {
+  lists: {
+    sublist1: {
+      tasks: {
+        label: "description",
+        other_label: "other description",
+      },
     },
-    raj: {
-      password: '2469',
+    sublist2: {
+      tasks: {
+        label: "description",
+        other_label: "other description",
+      },
     },
   },
 };
 
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
-});
+let authData = {
+  users: {
+    vatsa: {
+      password: 1357,
+    },
+    raj: {
+      password: 2468,
+    },
+  },
+};
 
-app.get('/login', (req, res) => {
-  res.send(`
-    <h1>Login</h1>
-    <form method="post" action="/login">
-      <label>Username: <input type="text" name="username"></label><br>
-      <label>Password: <input type="password" name="password"></label><br>
-      <input type="submit" value="Login">
-    </form>
-    <br>
-    <h1>Register</h1>
-    <form method="post" action="/register">
-      <label>Username: <input type="text" name="username"></label><br>
-      <label>Password: <input type="password" name="password"></label><br>
-      <input type="submit" value="Register">
-    </form>
-  `);
-});
+app.get("/login", (req, res) => {
+  user = req.query.u;
+  pass = req.query.p;
 
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  if (authData.users[username] && authData.users[username].password === password) {
-    req.session.authenticated = true;
-    req.session.username = username;
-    res.redirect('/dashboard');
-  } else {
-    res.send('Login failed. <a href="/login">Try again</a>');
-  }
-});
-
-app.get('/dashboard', (req, res) => {
-  if (req.session.authenticated) {
-    res.send(`Welcome, ${req.session.username}! You are now logged in.`);
-  } else {
-    res.redirect('/login');
-  }
-});
-
-app.get('/logout', (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error(err);
+  if (authData.users[user]) {
+    if (authData.users[user].password == Number(pass)) {
+      res.status(200).send("Welcome in!"); // Use res.status(200) for success
+    } else {
+      res.status(403).send("Wrong Password"); // Use res.status(403)
     }
-    res.redirect('/login');
-  });
+  } else {
+    res.status(403).send("You aren't a user, please register.");
+  }
 });
 
-app.post('/register', (req, res) => {
-  const { username, password } = req.body;
-  if (!authData.users[username]) {
-    authData.users[username] = { password };
-    res.send(`User '${username}' has been registered. <a href="/login">Login</a>`);
+app.post("/register", (req, res) => {
+  user = req.query.u; // Use req.body to access POST data
+  pass = req.query.p;
+  console.log(user,pass)
+
+  if (authData.users[user] != undefined) {
+    res.status(403).send("Already Registered, please use login");
   } else {
-    res.send('Username is already taken. <a href="/login">Try again</a>');
+    authData.users[user] = {
+      password: Number(pass),
+    };
+    res.status(200).send("Now Registered, please login");
   }
+});
+
+// You can use the following code to test the POST request using supertest
+request(app)
+  .post("/register?u=newMan&p=1234") // Use POST request
+  .expect(200)
+  .end(function (err, res) {
+    if (err) throw err;
+    console.log(res.text); // Log the response
+  });
+
+  // You can use the following code to test the POST request using supertest
+request(app)
+.get("/login?u=newMan&p=1234") // Use POST request
+.expect(200)
+.end(function (err, res) {
+  if (err) throw err;
+  console.log(res.text); // Log the response
 });
