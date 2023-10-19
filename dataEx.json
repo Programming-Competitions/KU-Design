@@ -1,0 +1,16 @@
+{
+  "lists": {
+    "sublist1": {
+      "tasks": {
+        "label": "description",
+        "other_label": "other description"
+      }
+    },
+    "sublist2": {
+      "tasks": {
+        "label": "description",
+        "other_label": "other description"
+      }
+    }
+  }
+}
