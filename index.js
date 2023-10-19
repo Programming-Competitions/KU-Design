@@ -1,11 +1,18 @@
-var express = require("express");
-var request = require("supertest");
-var app = express();
+const express = require('express');
+const session = require('express-session');
 
-app.use(express.urlencoded({ extended: true })); // Add this line to parse URL-encoded bodies
+const app = express();
 
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
+app.use(session({
+  secret: 'my secret key',
+  resave: false,
+  saveUninitialized: true,
+}));
+
+app.use(express.urlencoded({ extended: true }));
+
+app.get('/', (req, res) => {
+  res.sendFile('index.html', { root: __dirname });
 });
 
 let listData = {
@@ -36,50 +43,51 @@ let authData = {
   },
 };
 
-app.get("/login", (req, res) => {
-  user = req.query.u;
-  pass = req.query.p;
 
-  if (authData.users[user]) {
-    if (authData.users[user].password == Number(pass)) {
-      res.status(200).send("Welcome in!"); // Use res.status(200) for success
-    } else {
-      res.status(403).send("Wrong Password"); // Use res.status(403)
-    }
-  } else {
-    res.status(403).send("You aren't a user, please register.");
+// Define the register route
+app.post('/register', async (req, res) => {
+  const username = req.body.u;
+  const password = req.body.p;
+
+  // Check if the username is already registered
+  if (authData.users[username] !== undefined) {
+    res.status(403).send('Username already registered');
+    return;
   }
+
+  // Register the new user
+  authData.users[username] = {
+    password,
+  };
+
+  res.status(200).send('User registered successfully');
 });
 
-app.post("/register", (req, res) => {
-  user = req.query.u; // Use req.body to access POST data
-  pass = req.query.p;
-  console.log(user,pass)
+// Define the login route
+app.get('/login', async (req, res) => {
+  const username = req.query.u;
+  const password = req.query.p;
 
-  if (authData.users[user] != undefined) {
-    res.status(403).send("Already Registered, please use login");
-  } else {
-    authData.users[user] = {
-      password: Number(pass),
-    };
-    res.status(200).send("Now Registered, please login");
+  // Check if the user exists
+  if (authData.users[username] === undefined) {
+    res.status(403).send('User does not exist');
+    return;
   }
+
+  // Check if the password is correct
+  if (JSON.stringify(authData.users[username].password) !== password) {
+    res.status(403).send('Incorrect password');
+    return;
+  }
+
+  // Login the user
+  // TODO: Implement a more robust login mechanism, such as using JSON Web Tokens (JWTs)
+  req.session.user = username;
+
+  res.status(200).send('User logged in successfully');
 });
 
-// You can use the following code to test the POST request using supertest
-request(app)
-  .post("/register?u=newMan&p=1234") // Use POST request
-  .expect(200)
-  .end(function (err, res) {
-    if (err) throw err;
-    console.log(res.text); // Log the response
-  });
-
-  // You can use the following code to test the POST request using supertest
-request(app)
-.get("/login?u=newMan&p=1234") // Use POST request
-.expect(200)
-.end(function (err, res) {
-  if (err) throw err;
-  console.log(res.text); // Log the response
+// Start the server
+app.listen(3000, () => {
+  console.log('Server running on port 3000');
 });

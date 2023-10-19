@@ -4,12 +4,14 @@
   "description": "Rest api",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dependencies": "npm i"
   },
-  "author": "Vatsa Pandey",
+  "author": "Vatsa and Raj",
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "node-fetch": "^3.3.2",
     "supertest": "^6.3.3"
   }
