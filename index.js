@@ -178,7 +178,27 @@ app.post('/addtask', async (req, res) => {
   ));
 });
 
-//Get request supertest
+app.put('/edit', (req, res) => {
+  const list = req.query.list
+  const oldtask = req.query.oldtask;
+  const newtask = req.query.newtask;
+
+  if (this.current_user == NaN) {
+    res.status(403).send('Please Login to use this feature');
+  } if (listData.users[this.current_user] == undefined) {
+    res.status(403).send('Please Login to use this feature');
+  }
+
+  for (let i = 0; i < listData.users[this.current_user].lists[list].length; i++) {
+    console.log(listData.users[this.current_user].lists[list][i])
+  }
+
+  res.status(200).send(JSON.stringify(
+    listData.users[this.current_user].lists[list].tasks
+  ))
+})
+
+//GET request supertest
 request(app)
   .get("/login?u=vatsa&p=1357") // Use Get request
   .expect(200)
