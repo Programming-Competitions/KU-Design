@@ -102,7 +102,6 @@ app.post('/register', async (req, res) => {
     }
   }
 
-  //res.status(200).send('User registered successfully');
   res.redirect(200, '/');
 });
 
@@ -180,8 +179,8 @@ app.post('/addtask', async (req, res) => {
 
 app.put('/edit', (req, res) => {
   const list = req.query.list
-  //const oldtask = req.query.oldtask;
-  //const newtask = req.query.newtask; 
+  const oldtask = req.query.old;
+  const newtask = req.query.new;
 
   if (this.current_user == NaN) {
     res.status(403).send('Please Login to use this feature');
@@ -189,14 +188,37 @@ app.put('/edit', (req, res) => {
     res.status(403).send('Please Login to use this feature');
   }
 
-  for (let i = 0; i <= listData.users[this.current_user].lists[list].length; i++) {
-    console.log(0 + listData.users[this.current_user].lists[list][0])
-    console.log(1 + listData.users[this.current_user].lists[list][1])
+  for (let i = 0; i < listData.users[this.current_user].lists[list].tasks.length; i++) {
+    if (listData.users[this.current_user].lists[list].tasks[i].label == oldtask) {
+      listData.users[this.current_user].lists[list].tasks[i].label = newtask
+      res.status(200).send(JSON.stringify(
+        listData.users[this.current_user].lists[list].tasks[i]
+      ))
+    }
+  }
+})
+
+//DELETE
+app.delete('/deltask', (req, res) => {
+  const list = req.query.list
+  const task = req.query.task;
+
+  if (this.current_user == NaN) {
+    res.status(403).send('Please Login to use this feature');
+  } if (listData.users[this.current_user] == undefined) {
+    res.status(403).send('Please Login to use this feature');
   }
 
-  res.status(200).send(JSON.stringify(
-    listData.users[this.current_user].lists[list].tasks
-  ))
+  for (let i = 0; i < listData.users[this.current_user].lists[list].tasks.length; i++) {
+    console.log("For loop")
+    if (listData.users[this.current_user].lists[list].tasks[i].label == task) {
+      console.log("found it")
+      listData.users[this.current_user].lists[list].tasks.splice(i,1);
+      res.status(200).send(JSON.stringify(
+        listData.users[this.current_user].lists[list].tasks
+      ))
+    }
+  }
 })
 
 //GET request supertest
@@ -221,11 +243,21 @@ request(app)
 
 //PUT request supertest
 request(app)
-  .put("/edit?list=sublist1") // Use POST request
+  .put("/edit?list=sublist1&old=Meme&new=MakeMeme") // Use PUT request
   .expect(200)
   .end(function (err, res) {
     if (err) throw err;
     console.log("PUT")
+    console.log(res.text); // Log the response
+  });
+
+//DELETE request supertest
+request(app)
+  .delete("/deltask?list=sublist1&task=MakeMeme") // Use DEL request
+  .expect(200)
+  .end(function (err, res) {
+    if (err) throw err;
+    console.log("DELETE")
     console.log(res.text); // Log the response
   });
 
