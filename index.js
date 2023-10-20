@@ -189,8 +189,9 @@ app.put('/edit', (req, res) => {
     res.status(403).send('Please Login to use this feature');
   }
 
-  for (let i = 0; i < listData.users[this.current_user].lists[list].length; i++) {
-    console.log(listData.users[this.current_user].lists[list][i])
+  for (let i = 0; i <= listData.users[this.current_user].lists[list].length; i++) {
+    console.log(0 + listData.users[this.current_user].lists[list][0])
+    console.log(1 + listData.users[this.current_user].lists[list][1])
   }
 
   res.status(200).send(JSON.stringify(
@@ -204,6 +205,7 @@ request(app)
   .expect(200)
   .end(function (err, res) {
     if (err) throw err;
+    console.log("GET")
     console.log(res.text); // Log the response
   });
 
@@ -213,6 +215,7 @@ request(app)
   .expect(200)
   .end(function (err, res) {
     if (err) throw err;
+    console.log("POST")
     console.log(res.text); // Log the response
   });
 
@@ -222,6 +225,7 @@ request(app)
   .expect(200)
   .end(function (err, res) {
     if (err) throw err;
+    console.log("PUT")
     console.log(res.text); // Log the response
   });
 
