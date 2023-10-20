@@ -181,7 +181,7 @@ app.post('/addtask', async (req, res) => {
 app.put('/edit', (req, res) => {
   const list = req.query.list
   const oldtask = req.query.oldtask;
-  const newtask = req.query.newtask;
+  const newtask = req.query.newtask; 
 
   if (this.current_user == NaN) {
     res.status(403).send('Please Login to use this feature');
