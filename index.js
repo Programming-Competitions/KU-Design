@@ -172,9 +172,9 @@ app.post('/addtask', async (req, res) => {
     deadline: "none",
   }
 
-  listData.users[this.current_user].lists[list].tasks.append(taskObj)
+  listData.users[this.current_user].lists[list].tasks.push(taskObj)
   res.status(200).send(JSON.stringify(
-    listData.users[this.current_user].lists[list][tasks]
+    listData.users[this.current_user].lists[list].tasks
   ));
 });
 
