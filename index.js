@@ -17,32 +17,44 @@ let listData = {
     vatsa: {
       lists: {
         sublist1: {
-          tasks: {
+          tasks: [{
             label: "description",
             other_label: "other description",
-          },
+          }, {
+            label: "description",
+            other_label: "other description",
+          }]
         },
         sublist2: {
-          tasks: {
+          tasks: [{
             label: "description",
             other_label: "other description",
-          },
+          }, {
+            label: "description",
+            other_label: "other description",
+          }]
         },
       },
     },
     raj: {
       lists: {
         sublist1: {
-          tasks: {
+          tasks: [{
             label: "description",
             other_label: "other description",
-          },
+          }, {
+            label: "description",
+            other_label: "other description",
+          }]
         },
         sublist2: {
-          tasks: {
+          tasks: [{
             label: "description",
             other_label: "other description",
-          },
+          }, {
+            label: "description",
+            other_label: "other description",
+          }]
         },
       },
     }
@@ -134,7 +146,7 @@ app.get('/list', async (req, res) => {
 
   if (this.current_user == NaN) {
     res.status(403).send('Please Login to use this feature');
-  } if (listData.users[this.current_user] == undefined){
+  } if (listData.users[this.current_user] == undefined) {
     res.status(403).send('Please Login to use this feature');
   }
 

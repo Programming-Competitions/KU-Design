@@ -1,8 +1,8 @@
 # Rest-API
-Rest-api in Javascript?
+Rest-api in Javascript
 
 to run the code:
 ```
-> npm run dependencies
+> npm i
 > npm run start
 ```
