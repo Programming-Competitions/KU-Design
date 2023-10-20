@@ -19,19 +19,19 @@ let listData = {
         sublist1: {
           tasks: [{
             label: "description",
-            other_label: "other description",
+            deadline: "none",
           }, {
             label: "description",
-            other_label: "other description",
+            deadline: "none",
           }]
         },
         sublist2: {
           tasks: [{
             label: "description",
-            other_label: "other description",
+            deadline: "none",
           }, {
             label: "description",
-            other_label: "other description",
+            deadline: "none",
           }]
         },
       },
@@ -41,19 +41,19 @@ let listData = {
         sublist1: {
           tasks: [{
             label: "description",
-            other_label: "other description",
+            deadline: "none",
           }, {
             label: "description",
-            other_label: "other description",
+            deadline: "none",
           }]
         },
         sublist2: {
           tasks: [{
             label: "description",
-            other_label: "other description",
+            deadline: "none",
           }, {
             label: "description",
-            other_label: "other description",
+            deadline: "none",
           }]
         },
       },
@@ -95,13 +95,14 @@ app.post('/register', async (req, res) => {
       newList: {
         tasks: {
           label: "Welcome",
-          other_label: "Get work done!",
+          deadline: "Get work done!",
         },
       },
     }
   }
 
-  res.status(200).send('User registered successfully');
+  //res.status(200).send('User registered successfully');
+  res.redirect(200, '/');
 });
 
 // Define the login route
@@ -126,7 +127,8 @@ app.get('/login', async (req, res) => {
 
   this.current_user = username
 
-  res.status(200).send('User logged in successfully');
+  //res.status(200).send('User logged in successfully');
+  res.redirect(200, '/route');
 });
 
 // Get all lists
@@ -152,6 +154,28 @@ app.get('/list', async (req, res) => {
 
   res.status(200).send(JSON.stringify(
     listData.users[this.current_user].lists[lName]
+  ));
+});
+
+// add a task to a list
+app.post('/addTask', async (req, res) => {
+  const list = req.query.list
+  const task = req.query.task;
+
+  if (this.current_user == NaN) {
+    res.status(403).send('Please Login to use this feature');
+  } if (listData.users[this.current_user] == undefined) {
+    res.status(403).send('Please Login to use this feature');
+  }
+
+  taskObj = {
+    label: task,
+    deadline: "none",
+  }
+
+  listData.users[this.current_user].lists[list].tasks.append(taskObj)
+  res.status(200).send(JSON.stringify(
+    listData.users[this.current_user].lists[list][tasks]
   ));
 });
 
