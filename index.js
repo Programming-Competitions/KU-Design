@@ -1,4 +1,5 @@
 const express = require('express');
+var request = require("supertest");
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -113,7 +114,6 @@ app.get('/login', async (req, res) => {
   // Check if the user exists
   if (authData.users[username] === undefined) {
     res.status(403).send('User does not exist');
-    return;
   }
 
   // Check if the password is correct 
@@ -122,7 +122,6 @@ app.get('/login', async (req, res) => {
     //console.log(authData.users[username].password === password);
     //console.log(typeof authData.users[username].password === typeof password);
     res.status(403).send(`${typeof authData.users[username].password}:${typeof password} Incorrect password`);
-    return;
   }
 
   this.current_user = username
@@ -158,7 +157,7 @@ app.get('/list', async (req, res) => {
 });
 
 // add a task to a list
-app.post('/addTask', async (req, res) => {
+app.post('/addtask', async (req, res) => {
   const list = req.query.list
   const task = req.query.task;
 
@@ -178,6 +177,24 @@ app.post('/addTask', async (req, res) => {
     listData.users[this.current_user].lists[list][tasks]
   ));
 });
+
+//Get request supertest
+request(app)
+  .get("/login?u=vatsa&p=1357") // Use Get request
+  .expect(200)
+  .end(function (err, res) {
+    if (err) throw err;
+    console.log(res.text); // Log the response
+  });
+
+//POST request supertest
+request(app)
+  .post("/addtask?list=sublist1&task=Meme") // Use POST request
+  .expect(200)
+  .end(function (err, res) {
+    if (err) throw err;
+    console.log(res.text); // Log the response
+  });
 
 // Start the server
 app.listen(3000, () => {
