@@ -180,8 +180,8 @@ app.post('/addtask', async (req, res) => {
 
 app.put('/edit', (req, res) => {
   const list = req.query.list
-  const oldtask = req.query.oldtask;
-  const newtask = req.query.newtask; 
+  //const oldtask = req.query.oldtask;
+  //const newtask = req.query.newtask; 
 
   if (this.current_user == NaN) {
     res.status(403).send('Please Login to use this feature');
@@ -210,6 +210,15 @@ request(app)
 //POST request supertest
 request(app)
   .post("/addtask?list=sublist1&task=Meme") // Use POST request
+  .expect(200)
+  .end(function (err, res) {
+    if (err) throw err;
+    console.log(res.text); // Log the response
+  });
+
+//PUT request supertest
+request(app)
+  .put("/edit?list=sublist1") // Use POST request
   .expect(200)
   .end(function (err, res) {
     if (err) throw err;
