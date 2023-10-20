@@ -56,7 +56,7 @@ app.post('/register', async (req, res) => {
 });
 
 // Define the login route
-app.get('/login', async (req, res) => {
+app.post('/login', async (req, res) => {
   const username = req.query.u;
   const password = req.query.p;
 
@@ -68,7 +68,7 @@ app.get('/login', async (req, res) => {
 
   // Check if the password is correct
   if (JSON.stringify(authData.users[username].password) !== password) {
-    res.status(403).send('Incorrect password');
+    res.status(403).send(`${authData.users[username].password}:${password} Incorrect password`);
     return;
   }
 
