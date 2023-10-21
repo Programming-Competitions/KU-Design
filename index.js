@@ -159,6 +159,7 @@ app.get('/list', async (req, res) => {
 app.post('/addtask', async (req, res) => {
   const list = req.query.list
   const task = req.query.task;
+  const deadline = new Date(req.query.deadline);
 
   if (this.current_user == NaN) {
     res.status(403).send('Please Login to use this feature');
@@ -168,7 +169,7 @@ app.post('/addtask', async (req, res) => {
 
   taskObj = {
     label: task,
-    deadline: "none",
+    deadline: deadline,
   }
 
   listData.users[this.current_user].lists[list].tasks.push(taskObj)
@@ -181,6 +182,8 @@ app.put('/edit', (req, res) => {
   const list = req.query.list
   const oldtask = req.query.old;
   const newtask = req.query.new;
+  const NewDeadline = new Date(req.query.deadline);
+  console.log(`New deadline: ${NewDeadline}`)
 
   if (this.current_user == NaN) {
     res.status(403).send('Please Login to use this feature');
@@ -191,6 +194,9 @@ app.put('/edit', (req, res) => {
   for (let i = 0; i < listData.users[this.current_user].lists[list].tasks.length; i++) {
     if (listData.users[this.current_user].lists[list].tasks[i].label == oldtask) {
       listData.users[this.current_user].lists[list].tasks[i].label = newtask
+      if(NewDeadline != "Invalid Date"){
+        listData.users[this.current_user].lists[list].tasks[i].deadline = NewDeadline;
+      }
       res.status(200).send(JSON.stringify(
         listData.users[this.current_user].lists[list].tasks[i]
       ))
@@ -210,9 +216,9 @@ app.delete('/deltask', (req, res) => {
   }
 
   for (let i = 0; i < listData.users[this.current_user].lists[list].tasks.length; i++) {
-    console.log("For loop")
+    //console.log("For loop")
     if (listData.users[this.current_user].lists[list].tasks[i].label == task) {
-      console.log("found it")
+      //console.log("found it")
       listData.users[this.current_user].lists[list].tasks.splice(i,1);
       res.status(200).send(JSON.stringify(
         listData.users[this.current_user].lists[list].tasks
@@ -233,7 +239,7 @@ request(app)
 
 //POST request supertest
 request(app)
-  .post("/addtask?list=sublist1&task=Meme") // Use POST request
+  .post(`/addtask?list=sublist1&task=Meme&deadline="2015-03-25"`) // Use POST request
   .expect(200)
   .end(function (err, res) {
     if (err) throw err;
@@ -243,7 +249,7 @@ request(app)
 
 //PUT request supertest
 request(app)
-  .put("/edit?list=sublist1&old=Meme&new=MakeMeme") // Use PUT request
+  .put(`/edit?list=sublist1&old=Meme&new=MakeMeme&deadline="2018-03-25"`) // Use PUT request
   .expect(200)
   .end(function (err, res) {
     if (err) throw err;
