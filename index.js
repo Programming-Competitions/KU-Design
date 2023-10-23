@@ -105,6 +105,11 @@ app.post('/register', async (req, res) => {
   res.redirect(200, '/');
 });
 
+// get current user
+app.get('/currentU', async (req, res) => {
+  res.status(200).send(this.current_user);
+});
+
 // Define the login route
 app.get('/login', async (req, res) => {
   const username = req.query.u;
