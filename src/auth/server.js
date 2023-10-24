@@ -8,7 +8,8 @@ const authJSON = JSON.parse(fs.readFileSync('./src/auth/auth.json', 'utf8'));
 const userJSON = JSON.parse(fs.readFileSync('./src/userData.json', 'utf8'))
 const app = express()
 const port = 8080
-let currentUser
+let username
+let currentUser = "admin"
 
 let authData = authJSON
 let userData = userJSON
@@ -70,30 +71,100 @@ app.post('/register', (req, res) => {
 });
 
 // Define the login route
+// app.get('/login', async (req, res) => {
+//     const username = req.query.u;
+//     const password = req.query.p;
+
+//     console.log(authData.users["raj"])
+//     console.log(authData.users["raj"].password)
+
+//     // Check if the user exists
+//     if (authData.users[username] === undefined) {
+//         res.status(403).send('User does not exist');
+//     } else if (authData.users[username].password != password) {
+//         console.log(authData.users[username].password === password);
+//         console.log(typeof authData.users[username].password === typeof password);
+//         alert("Incorrect Password");
+//     } else {
+//         this.current_user = username
+//         currentUser = username
+
+//         res.redirect('http://localhost:8081');
+//         // res.status(200).send(`
+//         // // <h1>Logged in</h1>
+//         // // <p>Head to Dashboard at</p> <br><br> 
+//         //  <a href="http://localhost:8081/">Here</a>`
+//         // );
+//     }
+// });
+
 app.get('/login', async (req, res) => {
     const username = req.query.u;
     const password = req.query.p;
-
-    console.log(authData.users["raj"])
-    console.log(authData.users["raj"].password)
 
     // Check if the user exists
     if (authData.users[username] === undefined) {
         res.status(403).send('User does not exist');
     } else if (authData.users[username].password != password) {
-        //console.log(authData.users[username].password === password);
-        //console.log(typeof authData.users[username].password === typeof password);
-        res.status(403).send(`${typeof authData.users[username].password}:${typeof password} Incorrect password`);
+        res.status(401).send('Incorrect Password');
     } else {
         this.current_user = username
         currentUser = username
-    
-        res.status(200).send(`
-        <h1>Logged in</h1>
-        <p>Head to Dashboard at</p> <br><br> 
-        <a href="https://obscure-funicular-rwqrgv44rvrfwpqg-8081.app.github.dev/">Here</a>`
-        );
+
+        res.redirect('http://localhost:8081');
     }
+});
+
+
+
+app.get('/sendJson', async (req, res) => {
+    // const json = req.query.json;
+    // console.log(__dirname)
+    // fs.writeFileSync('./src/userData.json', json);
+    // res.status(200).send(`Noice 69`);
+
+    if (!currentUser) {
+        res.status(403).send('No user logged in');
+        return;
+    }
+
+    fs.readFile('./src/userData.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+
+        let userJSON = JSON.parse(data);
+
+        let user = userJSON.users[currentUser];
+        if (!user) {
+            console.log("User not found.");
+            return;
+        }
+
+        console.log(user.tasks)
+
+        const newTask = {
+            title: req.query.title,
+            details: req.query.details,
+            date: req.query.date,
+            priority: req.query.priority,
+            projectId: req.query.projectId,
+        };
+
+        user.tasks.push(newTask);
+
+        // Write the updated JSON back to the file
+        fs.writeFile('./src/userData.json', JSON.stringify(userJSON, null, 2), (writeErr) => {
+            if (writeErr) {
+                console.error(writeErr);
+                res.status(500).send('Failed to add the task');
+            } else {
+                console.log("Task added successfully!");
+                res.status(200).send('Task added successfully');
+            }
+        });
+    });
 });
 
 app.listen(port, () => {

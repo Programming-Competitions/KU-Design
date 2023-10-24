@@ -99,14 +99,16 @@ function getNewTaskData(e) {
         date = null;
     }
 
+    fetch('http://127.0.0.1:8080/sendJson?=' + 'title=' + title + '&details=' + details + '&date=' + date + '&priority=' + priority)
     composeNewTask(title, details, date, priority);
     closeModal();
 }
 
-function composeNewTask(title, details, date, priority) {    
+function composeNewTask(title, details, date, priority) {
     const projectId = projectsHandler.items[activeTab].id;
     const newTask = task(title, details, date, priority, projectId);
     const newTaskIndex = tasksHandler.addTask(newTask);
+
     updateTasksStorage();
 
     // If this is the first task of the project then clean the 'no tasks' message
@@ -165,7 +167,7 @@ function createTaskUI(task, taskIndex) {
     checkbox.setAttribute("aria-label", "Mark task as completed");
     editTaskBtn.setAttribute("aria-label", "Edit task");
     deleteTaskBtn.setAttribute("aria-label", "Delete task");
-    
+
     taskActions.append(editTaskBtn, deleteTaskBtn);
 
     if (task.details) {
@@ -249,7 +251,7 @@ function markTaskCompletedUI(target, taskIndex) {
         uncompletedTaskCount++;
         renderTasks();
     }
-    
+
     renderNoTasksMessage();
 }
 
@@ -343,7 +345,7 @@ function renderTasks() {
     });
 
     completedTasksContainer.prepend(completedFragment);
-    
+
     // If there are no uncompleted tasks, render a special message
     uncompletedTaskCount = uncompletedFragment.children.length;
     if (renderNoTasksMessage() === true) {
@@ -467,7 +469,7 @@ function hideInputError(input) {
 function changeFormPriorityIndicator(select) {
     const label = select.previousElementSibling;
     resetFormPriorityIndicator(label);
-    
+
     switch (select.value) {
         case "low":
             label.classList.add("low");
@@ -480,7 +482,7 @@ function changeFormPriorityIndicator(select) {
             break;
     }
 }
-            
+
 function resetFormPriorityIndicator(label) {
     label.classList.remove("low", "medium", "high");
 }

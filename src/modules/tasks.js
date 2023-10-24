@@ -1,18 +1,11 @@
 const userData = require('../userData.json');
 let username = "admin";
 const tasksHandler = {
-  items: [],
-  addTask: function(task) {
-    userData.users[username].tasks.push({
-      title: String(task.title),
-      details: String(task.details),
-      date: String(task.date),
-      priority: String(task.priority),
-      projectId: String(task.projectId)
-    });
+    items: [],
+    addTask: function (task) {
         return this.items.push(task) - 1;
     },
-    removeTask: function(index) {
+    removeTask: function (index) {
         return this.items.splice(index, 1);
     },
     removeProjectTasks: function (id) {
@@ -31,7 +24,7 @@ const tasksHandler = {
 }
 
 // Factory function to create new tasks
-function task(title, details, date, priority, projectIndex, completed = false) {    
+function task(title, details, date, priority, projectIndex, completed = false) {
     return {
         title,
         details,
