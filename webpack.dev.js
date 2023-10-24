@@ -7,7 +7,7 @@ module.exports = merge(common, {
     devServer: {
         static: './dist',
         watchFiles: ["./src/*.html"],
-        hot: true
+        hot: true,
     },
     module: {
         rules: [

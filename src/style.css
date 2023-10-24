@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
 }
@@ -25,7 +27,11 @@ body {
     line-height: 1.2;
 }
 
-body, button, input, select, textarea {
+body,
+button,
+input,
+select,
+textarea {
     font-family: Inter;
     font-size: 1.6rem;
     color: var(--text-color);
@@ -43,7 +49,8 @@ h3,
     font-weight: 750;
 }
 
-input, textarea {
+input,
+textarea {
     appearance: none;
     width: 100%;
     border: 1px solid hsl(216, 14%, 75%);
@@ -53,7 +60,8 @@ select {
     background-color: white;
 }
 
-select, input[type="date"] {
+select,
+input[type="date"] {
     cursor: pointer;
     transition: 0.2s background-color ease;
 }
@@ -148,7 +156,6 @@ li {
     cursor: pointer;
     padding: 7px 12px;
     border-radius: 6px;
-    user-select: none;
     transition: 0.2s background-color ease;
 }
 
@@ -186,7 +193,7 @@ li {
     outline: 1px solid var(--blue);
 }
 
-.n-project_form > :first-child {
+.n-project_form> :first-child {
     border-radius: 5px 0 0 5px;
     padding: 10px;
     outline: none;
@@ -294,7 +301,7 @@ li {
     fill: hsl(219, 6%, 48%);
 }
 
-.task.completed > .task_title {
+.task.completed>.task_title {
     text-decoration: line-through;
 }
 
@@ -446,7 +453,7 @@ input[type="checkbox"]:checked {
     font-weight: 600;
 }
 
-.task-modal_w > :is(input, textarea, select) {
+.task-modal_w> :is(input, textarea, select) {
     padding: 10px 10px;
     border: 1px solid hsl(216, 14%, 75%);
     border-radius: 4px;
@@ -586,7 +593,7 @@ input[type="submit"] {
     border-radius: 6px;
 }
 
-.workspace_actions-btn > svg {
+.workspace_actions-btn>svg {
     pointer-events: none;
 }
 
@@ -632,7 +639,7 @@ input[type="submit"] {
     flex-grow: 1;
 }
 
-.icon-container > svg {
+.icon-container>svg {
     display: block;
 }
 
@@ -661,6 +668,7 @@ input[type="submit"] {
 
 /* ----- Queries ----- */
 @media (hover: hover) {
+
     select:hover,
     input[type="date"]:hover {
         background-color: hsl(224, 100%, 98%);
@@ -670,7 +678,7 @@ input[type="submit"] {
         background-color: hsl(210, 33.3%, 85%);
     }
 
-    .sidebar_item:hover > .sidebar_item-btn {
+    .sidebar_item:hover>.sidebar_item-btn {
         opacity: 1;
     }
 
@@ -708,7 +716,7 @@ input[type="submit"] {
         transform: rotate(-180deg) translateY(2px);
     }
 
-    .task_actions > button:hover {
+    .task_actions>button:hover {
         fill: black;
     }
 
@@ -726,7 +734,12 @@ input[type="submit"] {
 }
 
 @media screen and (max-width: 992px) {
-    body, button, input, select, textarea {
+
+    body,
+    button,
+    input,
+    select,
+    textarea {
         font-size: 1.4rem;
     }
 
@@ -742,7 +755,7 @@ input[type="submit"] {
         transform: translateX(0%);
     }
 
-    .sidebar.active + .workspace {
+    .sidebar.active+.workspace {
         transform: translateX(325px);
     }
 
@@ -772,7 +785,12 @@ input[type="submit"] {
 }
 
 @media screen and (max-width: 768px) {
-    body, button, input, select, textarea {
+
+    body,
+    button,
+    input,
+    select,
+    textarea {
         font-size: 1.4rem;
     }
 
@@ -781,7 +799,7 @@ input[type="submit"] {
         max-width: 280px;
     }
 
-    .sidebar.active + .workspace {
+    .sidebar.active+.workspace {
         transform: translateX(280px);
     }
 
@@ -805,7 +823,7 @@ input[type="submit"] {
         opacity: 1;
     }
 
-    .sidebar_item.active > .sidebar_item-btn {
+    .sidebar_item.active>.sidebar_item-btn {
         fill: white;
     }
 
@@ -826,7 +844,7 @@ input[type="submit"] {
         padding: 12px;
     }
 
-    .n-task_btn > svg {
+    .n-task_btn>svg {
         width: 14px;
         height: 14px;
     }
@@ -895,7 +913,7 @@ input[type="submit"] {
         gap: 15px;
     }
 
-    .close-modal-btn > svg {
+    .close-modal-btn>svg {
         width: 20px;
         height: 20px;
     }
