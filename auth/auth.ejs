@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+    <title>Login/Register</title>
+    <meta charset="UTF-8">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/6cdba77384.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <video width="500" autoplay loop>
+        <source src="images/Intro.mp4" type="video/mp4">
+    </video>
+
+    <h1 class="text-6xl text-center m-2 p-2 mb-[100px]">What's Special?</h1>
+    <div class="text-center grid grid-cols-3 gap-1">
+        <div class="p-2 m-2">
+            <i class="icon fa-regular fa-clock fa-5x"></i>
+            <p class="p-2 m-2">Easy to make, plan, and schedule tasks.</p>
+        </div>
+        <div class="p-2 m-2">
+            <i class="fa-solid fa-circle-exclamation fa-5x"></i>
+            <p class="p-2 m-2">Tasks can be organized by priotity.</p>
+        </div>
+        <div class="p-2 m-2">
+            <i class="icon fas fa-regular fa-credit-card fa-5x"></i>
+            <p class="p-2 m-2">It's Free!</p>
+        </div>
+    </div>
+    <div class="text-center p-2">
+        <div id="login">
+            <h2 class="text-4xl pb-8">Login</h2>
+            <form action="/login" method="get">
+                <input type="text" name="u" placeholder="Username">
+                <input type="password" name="p" placeholder="Password">
+                <button type="submit"  class="bg-slate-100 p-4">Login</button>
+            </form>
+        </div>
+
+        <div id="register">
+            <h2 class="text-4xl pb-8 pt-8">Register</h2>
+            <form action="/register" method="post">
+                <input type="text" name="u" placeholder="Username">
+                <input type="password" name="p" placeholder="Password">
+                <button type="submit" class="bg-slate-100 p-4">Register</button>
+            </form>
+        </div>
+    </div>
+    <p class="footer-text">© TODO 2023</p>
+    <script>(function (d) { var s = d.createElement("script"); s.setAttribute("data-account", "vW1VbsRHEc"); s.setAttribute("src", "https://cdn.userway.org/widget.js"); (d.body || d.head).appendChild(s); })(document)</script>
+</body>
+
+</html>
