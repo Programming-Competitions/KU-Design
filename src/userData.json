@@ -5,33 +5,14 @@
       "projects": {}
     },
     "raj": {
-      "username": "raj",
       "tasks": {},
       "projects": {}
     },
     "admin": {
-      "lists": {
-        "newList": {
-          "tasks": {
-            "label": "Welcome",
-            "deadline": "Get work done!"
-          }
-        }
-      }
-    },
-    "bobbb": {
       "tasks": {},
       "projects": {}
     },
-    "bobbbbbbb": {
-      "tasks": {},
-      "projects": {}
-    },
-    "ttt": {
-      "tasks": {},
-      "projects": {}
-    },
-    "tttttttttt": {
+    "v": {
       "tasks": {},
       "projects": {}
     }

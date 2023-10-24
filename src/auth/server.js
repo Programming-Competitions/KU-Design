@@ -74,24 +74,26 @@ app.get('/login', async (req, res) => {
     const username = req.query.u;
     const password = req.query.p;
 
+    console.log(authData.users["raj"])
+    console.log(authData.users["raj"].password)
+
     // Check if the user exists
     if (authData.users[username] === undefined) {
         res.status(403).send('User does not exist');
-    }
-
-    // Check if the password is correct 
-    // dont use json stringify on this
-    if (authData.users[username].password != password) {
+    } else if (authData.users[username].password != password) {
         //console.log(authData.users[username].password === password);
         //console.log(typeof authData.users[username].password === typeof password);
         res.status(403).send(`${typeof authData.users[username].password}:${typeof password} Incorrect password`);
+    } else {
+        this.current_user = username
+        currentUser = username
+    
+        res.status(200).send(`
+        <h1>Logged in</h1>
+        <p>Head to Dashboard at</p> <br><br> 
+        <a href="https://obscure-funicular-rwqrgv44rvrfwpqg-8081.app.github.dev/">Here</a>`
+        );
     }
-
-    this.current_user = username
-    currentUser = username
-
-    //res.status(200).send('User logged in successfully');
-    res.redirect('http://localhost:8081');
 });
 
 app.listen(port, () => {

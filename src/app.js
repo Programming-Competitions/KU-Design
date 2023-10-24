@@ -24,6 +24,7 @@ fetch('http://127.0.0.1:8080/username') // Replace with the URL of the website y
         console.error('There was a problem with the fetch operation:', error);
     });
 
+    username = "admin" //for now TODO
 console.log(username)
 
 storage.initStorage();

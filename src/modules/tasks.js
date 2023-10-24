@@ -1,6 +1,15 @@
+const userData = JSON.parse(localStorage.getItem('/src/userData.json'));
+username = "admin"
 const tasksHandler = {
     items: [],
     addTask: function(task) {
+        // userData.users[username]['tasks'].push({
+        //     title: task.title,
+        //     details: task.details, 
+        //     date: task.date, 
+        //     priority: task.priority, 
+        //     projectId: task.projectId
+        //   });
         return this.items.push(task) - 1;
     },
     removeTask: function(index) {

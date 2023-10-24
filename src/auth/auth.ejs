@@ -1,530 +1,55 @@
 <!DOCTYPE html>
-
 <head>
     <title>Login/Register</title>
     <meta charset="UTF-8">
 
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/6cdba77384.js" crossorigin="anonymous"></script>
-
-    <!-- Bootstrap Scripts -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
-
-    <style>
-        .body {
-            text-align: center;
-            background-color: rgb(237, 237, 237);
-        }
-
-        h2 {
-            text-align: center;
-        }
-
-        li {
-            padding-top: 5px;
-            padding-bottom: 5px;
-        }
-
-        .title-logo {
-            height: 100px;
-        }
-
-        .title-img {
-            height: calc(100% - 100px);
-            width: 100%;
-            background-color: blue;
-            padding-top: auto;
-            display: flex;
-            justify-content: center;
-        }
-
-        /* Nav Bar */
-        .navbar {
-            background-color: #526D82;
-            height: 100px !important;
-        }
-
-        .nav-text {
-            font-size: 1.25em;
-            background-color: #526D82;
-            padding-left: 15px !important;
-        }
-
-        .navbar-toggler {
-            background-color: #526D82 !important;
-        }
-
-        .nav-form {
-            color: #060047 !important;
-        }
-
-        .navbar-toggler-icon {
-            background-color: #526D82 !important;
-        }
-
-        .btn-outline-success {
-            background-color: #526D82 !important;
-            border-color: #526D82 !important;
-            color: lightslategrey !important;
-        }
-
-        .btn-outline-success:hover {
-            background-color: lightslategrey !important;
-            border-color: #526D82 !important;
-            color: #526D82 !important;
-        }
-
-        /* Title Image */
-
-        .title-box {
-            padding-top: 100px;
-            max-width: 100%;
-            max-height: 100%;
-        }
-
-        .plan-box {
-            padding-top: 40px;
-            padding-bottom: -40px !important;
-        }
-
-        .div-title-img {
-            padding: 0px !important;
-        }
-
-        /* Title Text */
-
-        .intro-text {
-            color: white;
-            position: absolute;
-            top: 50%;
-            left: 100px;
-            width: 100px;
-            transform: translate(-50%, -50%);
-        }
-
-        /* Features */
-        #features {
-            padding: 7% 15% 2% 15%;
-            background-color: #fff;
-            position: relative;
-            width: 100%;
-        }
-
-        .row {
-            height: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .row-video {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .feature-box {
-            text-align: center;
-            padding: 7%;
-            font-size: 1.2rem;
-        }
-
-        .feature-title {
-            font-size: 1.5rem;
-        }
-
-        .icon {
-            color: #B6E2A1;
-            margin-bottom: 1rem;
-        }
-
-        .icon:hover {
-            color: rgb(24, 28, 33);
-        }
-
-
-        /* How It Works */
-        #how-it-works {
-            padding-top: 50px;
-            padding-bottom: 50px;
-            background-color: #B6E2A1;
-            position: relative;
-            width: 100%;
-        }
-
-        .hiw-title {
-            padding-bottom: 20px;
-        }
-
-        .how-it-works-box {
-            text-align: center;
-        }
-
-        .work-img {
-            float: left;
-            margin-left: 100px;
-            padding: 100px, 0, 100px, 0;
-        }
-
-        .how-it-works-text {
-            padding-top: 15px;
-            padding-bottom: 15px;
-            font-size: 1.25rem;
-        }
-
-        .hiw-img {
-            width: 80%;
-        }
-
-        .work-text {
-            width: auto;
-            float: right;
-            margin-right: 250px;
-        }
-
-        /* Call To Action */
-
-        #cta {
-            padding-top: 50px;
-            padding-bottom: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .cta-header h2 {
-            padding-bottom: 10px;
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .cta-container {
-            max-width: 960px;
-        }
-
-        .cta-header {
-            max-width: 700px;
-        }
-
-        .recipe-btn {
-            background-color: #DDE6ED !important;
-            color: #fff !important;
-            border-color: #DDE6ED !important;
-            border-width: 3px !important;
-        }
-
-        .recipe-btn:hover {
-            background-color: #fff !important;
-            color: #DDE6ED !important;
-            border-color: #DDE6ED !important;
-            border-width: 3px;
-        }
-
-
-        /* Announcements */
-
-        #announcements {
-            background-color: #FFFBC1;
-        }
-
-        .announcement-box {
-            text-align: center;
-            justify-content: center;
-            padding-bottom: 35px;
-        }
-
-        .announcement-title {
-            padding-top: 75px;
-            padding-bottom: 50px;
-        }
-
-        /* Subscription */
-
-        #sub {
-            padding-top: 50px;
-            padding-bottom: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .sub-header h2 {
-            padding-bottom: 10px;
-        }
-
-        .sub-buttons {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .sub-container {
-            max-width: 960px;
-        }
-
-        .sub-header {
-            max-width: 700px;
-        }
-
-        /* Footer */
-
-        #footer {
-            font-size: 15px;
-            text-align: center;
-            justify-content: center;
-            background-color: #526D82;
-            padding-top: 30px;
-            padding-bottom: 25px;
-        }
-
-        .social-icon {
-            font-size: 24px;
-            padding-left: 15px;
-            padding-right: 15px;
-            padding-bottom: 10px;
-            color: black !important;
-        }
-
-        .social-icon:hover {
-            color: #B6E2A1 !important;
-        }
-
-        .footer-text:hover {
-            color: #B6E2A1 !important;
-        }
-
-        .thanks-footer {
-            width: 100%;
-            bottom: 0;
-            position: absolute;
-        }
-
-        /* Announcement Form */
-
-        .announcment-form {
-            padding-top: 30px;
-            background-color: #FFFBC1;
-        }
-
-        .submit-btn {
-            background-color: #526D82 !important;
-            color: lightslategrey !important;
-            outline-color: #526D82;
-        }
-
-        .submit-btn:hover {
-            background-color: lightslategrey !important;
-            color: #526D82 !important;
-            outline-color: lightslategrey;
-        }
-
-        .form-title {
-            padding-bottom: 45px;
-        }
-
-        /* How to Cook */
-
-        .htc-ingredients {
-            background-color: lightslategrey;
-        }
-
-        .recipe-width {
-            max-width: 800px !important;
-        }
-    </style>
-
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
+    <video width="500" autoplay loop>
+        <source src="images/Intro.mp4" type="video/mp4">
+    </video>
 
-    <section class="intro-section" id="title">
-
-        <div class="container-fluid">
-
-            <!-- Nav Bar -->
-            <nav class="navbar navbar-expand-md fixed-top">
-                <div class="container-fluid">
-                    <div class="title-logo"> <a class="navbar-brand"> <img class="title-img" href="index.html"
-                                src="images/universal_unified_food.png" alt=""></a> </div>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
-                        <ul class="nav-text navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-form nav-link active" aria-current="page" href="index.html">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-form nav-link" href="plans.html">Recipes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-form nav-link" href="form.html">Announcements</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
-
-            <!-- Title -->
-
-            <div class="row-video">
-                <div class="title-img">
-                    <video width="500" autoplay loop>
-                        <source src="images/Intro.mp4" type="video/mp4">
-                </div>
-            </div>
-
-            <!--Buttons-->
-
-
-            <!-- Features -->
-            <section class="white-section" id="features">
-                <div class="features-box">
-
-                    <div class="special-text">
-                        <h2>What's Special?</h2>
-                    </div>
-
-                    <div class="row">
-
-                        <div class="feature-box col-lg-4">
-                            <i class="icon fa-regular fa-clock fa-5x"></i>
-                            <p>Easy to make, plan, and find recipes.</p>
-                        </div>
-
-                        <div class="feature-box col-lg-4">
-                            <i class="icon fa-solid fa-users-between-lines fa-5x"></i>
-                            <p>Recipes made by native people like you.</p>
-                        </div>
-
-                        <div class="feature-box col-lg-4">
-                            <i class="icon fas fa-regular fa-credit-card fa-5x"></i>
-                            <p>Free Subscription!</p>
-                        </div>
-
-                    </div>
-
-            </section>
-
-
-            <!-- How It Works -->
-            <section class="green-section" id="how-it-works">
-                <div class="row">
-                    <div class="col-lg p-2 how-it-works-box">
-                        <img class="hiw-img" src="images/pic_of_food.png" alt="pic_of_food">
-                    </div>
-                    <div class="col-lg p-2">
-
-                        <h2 class="hiw-title">How It Works</h2>
-
-                        <ul>
-                            <li class="how-it-works-text">You create and publish recipes that you like.</li>
-                            <li class="how-it-works-text">Each recipe has a rating that atracts people to the dishes
-                                you create.</li>
-                            <li class="how-it-works-text">You can then interact with other users around the world
-                                for suggetions, reviews, and even recipies.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Call to Action -->
-            <section class="call-to-action" id="cta">
-
-                <div class="cta-container py-3">
-
-                    <div class="cta-header p-3 pb-md-4 mx-auto text-center">
-                        <h2 class="display-6 fw-normal">Start Cooking and Collaborating Today!</h2>
-                    </div>
-
-                    <div class="cta-buttons row text-center">
-
-                        <div class="cta-recipes col">
-                            <div class="card mb-4 rounded-3 shadow-sm">
-
-                                <div class="card-header py-3">
-                                    <h4 class="my-0 fw-normal">Recipes</h4>
-                                </div>
-
-                                <div class="card-body">
-                                    <h1 class="card-title pricing-card-title">Continue as Guest</h1>
-
-                                    <ul class="list-unstyled mt-3 mb-4">
-                                        <li>Find or create new and interesting recipes.</li>
-                                    </ul>
-
-                                    <button type="button" class="recipe-btn w-100 btn btn-lg"><a class="nav-link active"
-                                            aria-current="page" href="plans.html">Recipes</a></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </section>
-
-            <!-- Announcements -->
-            <section class="announcement" id="announcements">
-                <div class="announcement-box">
-
-                    <h2 class="announcement-title">Sign Up for Announcements, Updates, and More!</h2>
-                    <button type="button" class="recipe-btn btn btn-lg"><a class="nav-link active" aria-current="page"
-                            href="form.html">Sign Up Today</a></button>
-                </div>
-            </section>
-
+    <h1 class="text-6xl text-center m-2 p-2 mb-[100px]">What's Special?</h1>
+    <div class="text-center grid grid-cols-3 gap-1">
+        <div class="p-2 m-2">
+            <i class="icon fa-regular fa-clock fa-5x"></i>
+            <p class="p-2 m-2">Easy to make, plan, and schedule tasks.</p>
         </div>
-
+        <div class="p-2 m-2">
+            <i class="fa-solid fa-circle-exclamation fa-5x"></i>
+            <p class="p-2 m-2">Tasks can be organized by priotity.</p>
+        </div>
+        <div class="p-2 m-2">
+            <i class="icon fas fa-regular fa-credit-card fa-5x"></i>
+            <p class="p-2 m-2">It's Free!</p>
+        </div>
+    </div>
+    <div class="text-center p-2">
         <div id="login">
-            <h2>Login</h2>
-
+            <h2 class="text-4xl pb-8">Login</h2>
             <form action="/login" method="get">
                 <input type="text" name="u" placeholder="Username">
                 <input type="password" name="p" placeholder="Password">
-                <button type="submit">Login</button>
+                <button type="submit"  class="bg-slate-100 p-4">Login</button>
             </form>
         </div>
 
         <div id="register">
-            <h2>Register</h2>
-
+            <h2 class="text-4xl pb-8 pt-8">Register</h2>
             <form action="/register" method="post">
                 <input type="text" name="u" placeholder="Username">
                 <input type="password" name="p" placeholder="Password">
-                <button type="submit">Register</button>
+                <button type="submit" class="bg-slate-100 p-4">Register</button>
             </form>
         </div>
-    </section>
-
-    <!-- Footer -->
-
-    <footer class="white-section" id="footer">
-
-        <a href="https://twitter.com" target="_blank"> <i class="social-icon fab fa-twitter"></i></a>
-        <a href="https://facebook.com" target="_blank"> <i class="social-icon fab fa-facebook-f"></i></a>
-        <a href="https://instagram.com" target="_blank"> <i class="social-icon fab fa-instagram"></i></a>
-        <a href="https://gmail.com" target="_blank"> <i class="social-icon far fa-envelope"></i></a>
-
-        <p class="footer-text">© Universal Foods 2023</p>
-        <a class="footer-text" aria-current="page" href="citation.html">Citations</a>
-    </footer>
-
+    </div>
+    <p class="footer-text">© TODO 2023</p>
     <script>(function (d) { var s = d.createElement("script"); s.setAttribute("data-account", "vW1VbsRHEc"); s.setAttribute("src", "https://cdn.userway.org/widget.js"); (d.body || d.head).appendChild(s); })(document)</script>
-    <noscript>Please ensure Javascript is enabled for purposes of <a href="https://userway.org">website
-            accessibility</a>
-    </noscript>
 </body>
 
 </html>
