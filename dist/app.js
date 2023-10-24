@@ -42,9 +42,18 @@ var __webpack_exports__ = {};
 ;// CONCATENATED MODULE: ./src/images/GitHub-Mark.png
 const GitHub_Mark_namespaceObject = __webpack_require__.p + "images/img_b039b2d83982c8256af3.png";
 ;// CONCATENATED MODULE: ./src/modules/tasks.js
+const userData = JSON.parse(localStorage.getItem('/src/userData.json'));
+username = "admin"
 const tasksHandler = {
     items: [],
     addTask: function(task) {
+        // userData.users[username]['tasks'].push({
+        //     title: task.title,
+        //     details: task.details, 
+        //     date: task.date, 
+        //     priority: task.priority, 
+        //     projectId: task.projectId
+        //   });
         return this.items.push(task) - 1;
     },
     removeTask: function(index) {
@@ -3548,7 +3557,7 @@ function updateTasksStorage() {
 
 
 
-let username;
+let app_username;
 
 fetch('http://127.0.0.1:8080/username') // Replace with the URL of the website you want to fetch
     .then(response => {
@@ -3561,16 +3570,17 @@ fetch('http://127.0.0.1:8080/username') // Replace with the URL of the website y
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
         const bodyText = doc.querySelector('body').textContent;
-        username = bodyText;
+        app_username = bodyText;
 
         // Now `username` contains the body text of the website
-        console.log(username);
+        console.log(app_username);
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });
 
-console.log(username)
+    app_username = "admin" //for now TODO
+console.log(app_username)
 
 initStorage();
 /******/ })()
