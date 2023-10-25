@@ -1,3 +1,5 @@
+import { composeNewTask, initTask } from "./ui/ui-tasks";
+
 const userData = require('../userData.json');
 let username = "admin";
 const tasksHandler = {
@@ -16,9 +18,36 @@ const tasksHandler = {
         return this.items[index].completed;
     },
     init: function () {
-        // Parse each task date from string to Date object
-        for (let task of this.items) {
-            if (task.date !== null) task.date = new Date(task.date);
+        let tasks;
+
+        // Fetch the tasks from the server
+        fetch('http://127.0.0.1:8080/getTasks')
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                // Assuming 'data' contains your tasks data
+                tasks = data;
+
+                // Now 'tasks' contains the tasks from the server
+                console.log('Fetched tasks:', tasks);
+
+                // You can perform further operations with 'tasks' here
+            })
+            .catch((error) => {
+                console.error('Fetch error:', error);
+            });
+
+        // Assuming you have an array of tasks named 'tasks'
+
+        // Assuming you have an array of tasks named 'tasks'
+
+        for (const task of tasks) {
+            const { title, details, date, priority, project } = task;
+            addNewTask(title, details, date, priority, project);
         }
     }
 }
@@ -40,3 +69,4 @@ export {
     task,
     tasksHandler
 };
+

@@ -4,6 +4,8 @@ import { tasksHandler } from "../tasks.js";
 import { updateProjectsStorage, updateTasksStorage } from "../storage.js";
 import { sidebar } from "./ui-menu.js";
 
+let project;
+
 let activeTab = 0;  // Stores which project is currently selected by the user
 let sidebarProjectTitle;    // Stores the node of the selected project
 
@@ -49,7 +51,7 @@ function createProjectUI(project, projectIndex) {
     const projectIcon = document.createElement("span");
     const projectTitle = document.createElement("div");
     const deleteProjectBtn = document.createElement("button");
-    
+
     item.classList.add("sidebar_item");
     projectIcon.classList.add("icon-container");
     projectTitle.classList.add("sidebar_item-title", "flex-g");
@@ -57,7 +59,7 @@ function createProjectUI(project, projectIndex) {
 
     deleteProjectBtn.title = "Delete project";
     deleteProjectBtn.setAttribute("aria-label", "Delete project");
-    
+
     projectTitle.textContent = project.title;
     projectIcon.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
         <path d="m3.3 15.4c.717 0 1.3.583 1.3 1.3s-.583 1.3-1.3 1.3-1.3-.583-1.3-1.3.583-1.3 1.3-1.3zm2.7
@@ -69,7 +71,7 @@ function createProjectUI(project, projectIndex) {
     deleteProjectBtn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z">
         </path></svg>`;
-    
+
     item.append(projectIcon, projectTitle, deleteProjectBtn);
     item.addEventListener("click", (e) => {
         if (e.target.closest(".sidebar_item-btn")) {
@@ -100,7 +102,7 @@ function changeProject(projectNode, projectIndex) {
     activeTab = projectIndex;
     sidebarProjectTitle = projectNode.getElementsByClassName("flex-g")[0];
     workspaceTitle.removeEventListener("click", updateProjectTitle);
-    
+
     if (projectIndex === "Today" || projectIndex === "This Week") {
         workspaceTitle.textContent = projectIndex;
         newTaskContainer.classList.remove("active");
@@ -108,7 +110,7 @@ function changeProject(projectNode, projectIndex) {
         const project = projectsHandler.items[projectIndex];
         workspaceTitle.textContent = project.title;
         newTaskContainer.classList.add("active");
-        
+
         if (project.id !== 0) {
             workspaceTitle.addEventListener("click", updateProjectTitle);
         }
@@ -135,9 +137,12 @@ function updateProjectTitle() {
     input.autocomplete = "off";
     input.classList.add("workspace_title-input");
 
+    project = currProject.title
     // Listeners
     input.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") input.blur();
+        if (e.key === "Enter") {
+            input.blur();
+        }
     });
     input.addEventListener("blur", () => {
         // Perform a basic 'validation', if the user lefts the project without a name set it to "Untitled"
@@ -148,7 +153,7 @@ function updateProjectTitle() {
         } else {
             workspaceTitle.innerText = input.value;
         }
-        
+
         input.remove();
         updateProjectsStorage();
         workspaceTitle.classList.add("active");
@@ -174,7 +179,7 @@ function renderProjects() {
             fragment.prepend(createProjectUI(projectsHandler.items[i], i));
         }
     }
-    
+
     sidebarItems[0].click();
     sidebarUserProjects.innerHTML = "";
     sidebarUserProjects.prepend(fragment);
@@ -188,6 +193,23 @@ function showNewProjectForm() {
 
     document.addEventListener("click", detectClickOutsideForm);
     newProjectForm.firstElementChild.focus();
+
+    // Base URL
+    const baseURL = 'http://127.0.0.1:8080/sendProjects?';
+
+    // Encode Params
+    const params = new URLSearchParams({
+        title: project,
+    });
+
+    // Build URL
+    const url = baseURL + params.toString();
+
+    // Fetch Request
+    fetch(url)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
 }
 
 function hideNewProjectForm() {
@@ -206,5 +228,6 @@ function detectClickOutsideForm(e) {
 
 export {
     activeTab,
-    renderProjects
+    renderProjects,
+    sidebarProjectTitle
 };

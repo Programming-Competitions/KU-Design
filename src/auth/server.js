@@ -8,7 +8,6 @@ const authJSON = JSON.parse(fs.readFileSync('./src/auth/auth.json', 'utf8'));
 const userJSON = JSON.parse(fs.readFileSync('./src/userData.json', 'utf8'))
 const app = express()
 const port = 8080
-let username
 let currentUser = "admin"
 
 let authData = authJSON
@@ -57,8 +56,8 @@ app.post('/register', (req, res) => {
     };
 
     userData.users[username] = {
-        tasks: {},
-        projects: {}
+        tasks: [],
+        projects: []
     }
 
     currentUser = username
@@ -115,55 +114,108 @@ app.get('/login', async (req, res) => {
     }
 });
 
-
-
-app.get('/sendJson', async (req, res) => {
-    // const json = req.query.json;
-    // console.log(__dirname)
-    // fs.writeFileSync('./src/userData.json', json);
-    // res.status(200).send(`Noice 69`);
-
+app.get('/sendTasks', async (req, res) => {
     if (!currentUser) {
         res.status(403).send('No user logged in');
         return;
     }
 
+    let user = userJSON.users[currentUser];
+    if (!user) {
+        console.log("User not found.");
+        return;
+    }
+
+    console.log(user.tasks);
+
+    const newTask = {
+        title: req.query.title,
+        details: req.query.details,
+        date: req.query.date,
+        priority: req.query.priority,
+        project: req.query.project,
+    };
+
+    // Ensure user.tasks is an array
+    if (!Array.isArray(user.tasks)) {
+        user.tasks = [];
+    }
+
+    user.tasks.push(newTask);
+
+    // Write the updated JSON back to the file
+    fs.writeFile('./src/userData.json', JSON.stringify(userJSON, null, 2), (writeErr) => {
+        if (writeErr) {
+            console.error(writeErr);
+            res.status(500).send('Failed to add the task');
+        } else {
+            console.log("Task added successfully!");
+            res.status(200).send('Task added successfully');
+        }
+    });
+});
+
+app.get('/getTasks', (req, res) => {
     fs.readFile('./src/userData.json', 'utf8', (err, data) => {
         if (err) {
-            console.error(err);
-            return;
+            console.error('Error reading userData.json:', err);
+            return res.status(500).json({ error: 'Error reading userData.json' });
         }
 
-        let userJSON = JSON.parse(data);
+        try {
+            const userData = JSON.parse(data);
+            const user = userData.users[currentUser];
 
-        let user = userJSON.users[currentUser];
-        if (!user) {
-            console.log("User not found.");
-            return;
-        }
-
-        console.log(user.tasks)
-
-        const newTask = {
-            title: req.query.title,
-            details: req.query.details,
-            date: req.query.date,
-            priority: req.query.priority,
-            projectId: req.query.projectId,
-        };
-
-        user.tasks.push(newTask);
-
-        // Write the updated JSON back to the file
-        fs.writeFile('./src/userData.json', JSON.stringify(userJSON, null, 2), (writeErr) => {
-            if (writeErr) {
-                console.error(writeErr);
-                res.status(500).send('Failed to add the task');
+            if (user && user.tasks && Array.isArray(user.tasks)) {
+                const tasks = user.tasks;
+                console.log('Tasks:', tasks);
+                res.json({ tasks }); // Send tasks as a JSON response
             } else {
-                console.log("Task added successfully!");
-                res.status(200).send('Task added successfully');
+                console.error('User or tasks not found in the JSON data.');
+                res.status(404).json({ error: 'User or tasks not found' });
             }
-        });
+        } catch (parseError) {
+            console.error('Error parsing JSON:', parseError);
+            res.status(500).json({ error: 'Error parsing JSON' });
+        }
+    });
+});
+
+
+app.get('/sendProjects', async (req, res) => {
+    if (!currentUser) {
+        res.status(403).send('No user logged in');
+        return;
+    }
+
+    let user = userJSON.users[currentUser];
+    if (!user) {
+        console.log("User not found.");
+        return;
+    }
+
+    console.log(user.projects);
+
+    const newTask = {
+        title: req.query.title,
+    };
+
+    // Ensure user.projects is an array
+    if (!Array.isArray(user.projects)) {
+        user.projects = [];
+    }
+
+    user.projects.push(newTask);
+
+    // Write the updated JSON back to the file
+    fs.writeFile('./src/userData.json', JSON.stringify(userJSON, null, 2), (writeErr) => {
+        if (writeErr) {
+            console.error(writeErr);
+            res.status(500).send('Failed to add the task');
+        } else {
+            console.log("Task added successfully!");
+            res.status(200).send('Task added successfully');
+        }
     });
 });
 

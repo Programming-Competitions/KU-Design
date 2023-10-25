@@ -10,7 +10,6 @@ const tasksHandler = {
             priority: task.priority, 
             projectId: task.projectId
           });
-          fetch('https://obscure-funicular-rwqrgv44rvrfwpqg-8080.app.github.dev/sendJson?json=' + JSON.stringify(userData))
         return this.items.push(task) - 1;
     },
     removeTask: function(index) {

@@ -5,6 +5,7 @@ import { activeTab } from "./ui-projects.js";
 import { updateTasksStorage } from "../storage.js";
 import { darkOverlay } from "./ui-menu.js";
 import emptyMessageImage from "../../images/walking-outside.png";
+import { sidebarProjectTitle } from "./ui-projects.js"
 
 let uncompletedTaskCount;
 const currTaskInfo = {
@@ -98,10 +99,29 @@ function getNewTaskData(e) {
     if (isValid(date) === false) {
         date = null;
     }
-
-    fetch('http://127.0.0.1:8080/sendJson?=' + 'title=' + title + '&details=' + details + '&date=' + date + '&priority=' + priority)
     composeNewTask(title, details, date, priority);
     closeModal();
+
+    // Base URL
+    const baseURL = 'http://127.0.0.1:8080/sendTasks?';
+
+    // Encode Params
+    const params = new URLSearchParams({
+        title: title,
+        details: details,
+        date: date,
+        priority: priority,
+        project: sidebarProjectTitle.toString,
+    });
+
+    // Build URL
+    const url = baseURL + params.toString();
+
+    // Fetch Request
+    fetch(url)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
 }
 
 function composeNewTask(title, details, date, priority) {
@@ -512,6 +532,24 @@ function resetForm() {
     }
 }
 
+function addNewTask(title, details, date, priority, project) {
+    const projectId = project;
+    const newTask = task(title, details, date, priority, projectId);
+    const newTaskIndex = tasksHandler.addTask(newTask);
+
+    updateTasksStorage();
+
+    // If this is the first task of the project then clean the 'no tasks' message
+    if (uncompletedTaskCount === 0) cleanUncompletedTasksContainer();
+    uncompletedTaskCount++;
+
+    // If the user selected a sort order, then re-render the tasks to put the new one in the correct place
+    if (sortTasksBtn.dataset.sort === "asc" || sortTasksBtn.dataset.sort === "desc") {
+        renderTasks();
+    } else {
+        tasksContainer.prepend(createTaskUI(newTask, newTaskIndex));
+    }
+}
 
 newTaskForm.reset();
 editTaskForm.reset();
@@ -522,4 +560,5 @@ export {
     taskModal,
     closeModal,
     resetSortTasksBtn,
+    addNewTask
 };
