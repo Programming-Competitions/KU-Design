@@ -11,10 +11,35 @@
 </head>
 
 <body>
-    <video width="1500" autoplay muted class="p-2" style="margin: auto;">
+    <video width="1500" autoplay muted class="p-2" style="margin: auto;" controls id="tomato">
         <source src="https://github.com/Programming-Competitions/KU-Design/raw/main/src/vid.mp4" type="video/mp4">
     </video>
 
+
+
+
+    <script>
+    window.onload = function() {
+    var video = document.getElementById("tomato");
+
+    // Hide video control
+    video.setAttribute("controlsList", "nodownload");
+
+    // Hide video after 8 seconds
+    setTimeout(function() {
+    video.style.display = "none";
+    }, 8300); // 8000 milliseconds = 8 seconds
+    };
+
+
+
+        document.getElementById('vid').addEventListener('ended',myHandler,false);
+        function myHandler(e) {
+        //remove video here
+        //add menu here
+        document.getElementById("vid").style.display="none";
+    }
+    </script>
     <h1 class="text-6xl text-center m-2 p-2 mb-[100px]">What's Special?</h1>
     <div class="text-center grid grid-cols-3 gap-1">
         <div class="p-2 m-2">
