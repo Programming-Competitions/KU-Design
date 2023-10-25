@@ -46,8 +46,8 @@ const tasksHandler = {
         // Assuming you have an array of tasks named 'tasks'
 
         for (const task of tasks) {
-            const { title, details, date, priority, project } = task;
-            addNewTask(title, details, date, priority, project);
+            const { title, details, date, priority } = task;
+            addNewTask(title, details, date, priority, 0);
         }
     }
 }

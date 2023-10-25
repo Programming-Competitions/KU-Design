@@ -305,22 +305,50 @@ li {
     text-decoration: line-through;
 }
 
-.task:is(.low-priority, .medium-priority, .high-priority)::before {
+.task:is(.zero, .one, .two, .three, .four, .five, .six, .seven, .eight, .nine)::before {
     content: "";
     position: absolute;
     width: 5px;
     height: 100%;
 }
 
-.task.low-priority::before {
+.task.zero::before {
+    background-color: var(--white);
+}
+
+.task.one::before {
     background-color: var(--blue);
 }
 
-.task.medium-priority::before {
-    background-color: var(--yellow);
+.task.two::before {
+    background-color: var(--green);
 }
 
-.task.high-priority::before {
+.task.three::before {
+    background-color: var(--green);
+}
+
+.task.four::before {
+    background-color: var(--blue);
+}
+
+.task.five::before {
+    background-color: var(--blue);
+}
+
+.task.six::before {
+    background-color: var(--orange);
+}
+
+.task.seven::before {
+    background-color: var(--orange);
+}
+
+.task.eight::before {
+    background-color: var(--red);
+}
+
+.task.nine::before {
     background-color: var(--red);
 }
 
@@ -878,7 +906,7 @@ input[type="submit"] {
         text-align: left;
     }
 
-    .task:is(.low-priority, .medium-priority, .high-priority)::before {
+    .task:is(.zero, .one, .two, .three, .four, .five, .six, .seven, .eight, .nine)::before {
         width: 4px;
     }
 

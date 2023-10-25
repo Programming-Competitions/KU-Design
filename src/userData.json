@@ -95,14 +95,14 @@
           "details": "aaa",
           "date": "Wed Dec 12 1212 00:00:00 GMT-0550 (Central Standard Time)",
           "priority": "low",
-          "project": "function toString() { [native code] }"
+          "project": "1"
         },
         {
           "title": "aklwef'laksdjflkasjdl;faksdf",
           "details": "asldjkfal'ksfaskldf;lkasdfl;bqpasbrfgo[b[qpebrgqer]pigjeq]\n",
           "date": "null",
           "priority": "none",
-          "project": "function toString() { [native code] }"
+          "project": "1"
         }
       ],
       "projects": [

@@ -8,7 +8,7 @@ const authJSON = JSON.parse(fs.readFileSync('./src/auth/auth.json', 'utf8'));
 const userJSON = JSON.parse(fs.readFileSync('./src/userData.json', 'utf8'))
 const app = express()
 const port = 8080
-let currentUser = "admin"
+let currentUser;
 
 let authData = authJSON
 let userData = userJSON
@@ -218,6 +218,51 @@ app.get('/sendProjects', async (req, res) => {
         }
     });
 });
+
+app.delete('/deltask', (req, res) => {
+    const list = req.query.list
+    const task = req.query.task;
+
+    if (this.current_user == NaN) {
+        res.status(403).send('Please Login to use this feature');
+    } if (listData.users[this.current_user] == undefined) {
+        res.status(403).send('Please Login to use this feature');
+    }
+
+    for (let i = 0; i < listData.users[this.current_user].lists[list].tasks.length; i++) {
+        //console.log("For loop")
+        if (listData.users[this.current_user].lists[list].tasks[i].label == task) {
+            //console.log("found it")
+            listData.users[this.current_user].lists[list].tasks.splice(i, 1);
+            res.status(200).send(JSON.stringify(
+                listData.users[this.current_user].lists[list].tasks
+            ))
+        }
+    }
+})
+
+app.post('/addtask', async (req, res) => {
+    const list = req.query.list
+    const task = req.query.task;
+    const deadline = new Date(req.query.deadline);
+
+    if (this.current_user == NaN) {
+        res.status(403).send('Please Login to use this feature');
+    } if (listData.users[this.current_user] == undefined) {
+        res.status(403).send('Please Login to use this feature');
+    }
+
+    taskObj = {
+        label: task,
+        deadline: deadline,
+    }
+
+    listData.users[this.current_user].lists[list].tasks.push(taskObj)
+    res.status(200).send(JSON.stringify(
+        listData.users[this.current_user].lists[list].tasks
+    ));
+});
+
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
