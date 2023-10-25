@@ -52,7 +52,8 @@
                     </ul>
                 </nav>
             </div>
-            <!-- <div class="sidebar_center overflow-hidden">
+
+            <div class="sidebar_center overflow-hidden">
                 <h2 class="sidebar_subtitle">My Projects</h2>
                 <nav class="overflow-hidden">
                     <ul class="sidebar_my-projects">
@@ -63,9 +64,10 @@
             <!-- TODO: From here start userData.json entries -->
             <div class="sidebar_bottom">
                 <button type="button" id="newProject" class="active">
-                    <!-- <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
-                    </svg> -->
+                    </svg>
+                    New Project
                 </button>
 
                 <div>
@@ -118,10 +120,7 @@
 
                 <!-- Project content -->
                 <div class="workspace_content">
-                    <div id="tasks">
-
-                    </div>
-
+                    <div id="tasks"></div>
                     <h3 class="workspace_subtitle">Completed tasks</h3>
                     <div id="completedTasks">
 
@@ -165,16 +164,10 @@
                         <label for="f-nTaskPriority" class="select-indicator">Priority</label>
                         <select name="f-nTaskPriority" id="f-nTaskPriority" class="task-modal_select"
                             autocomplete="off">
-                            <option value="zero">0</option>
-                            <option value="one">1</option>
-                            <option value="two">2</option>
-                            <option value="three">3</option>
-                            <option value="four">4</option>
-                            <option value="five">5</option>
-                            <option value="six">6</option>
-                            <option value="seven">7</option>
-                            <option value="eight">8</option>
-                            <option value="nine">9</option>
+                            <option value="none">None</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
                         </select>
                     </div>
 
@@ -208,16 +201,10 @@
                         <label for="f-eTaskPriority" class="select-indicator">Priority</label>
                         <select name="f-eTaskPriority" id="f-eTaskPriority" class="task-modal_select"
                             autocomplete="off">
-                            <option value="zero">0</option>
-                            <option value="one">1</option>
-                            <option value="two">2</option>
-                            <option value="three">3</option>
-                            <option value="four">4</option>
-                            <option value="five">5</option>
-                            <option value="six">6</option>
-                            <option value="seven">7</option>
-                            <option value="eight">8</option>
-                            <option value="nine">9</option>
+                            <option value="none">None</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
                         </select>
                     </div>
 
